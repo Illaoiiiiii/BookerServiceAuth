@@ -10,6 +10,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
+
 @Entity
 public class Token {
 
@@ -17,6 +18,7 @@ public class Token {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int tokenId;
 	private String tokenString;
+	
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="customerId")

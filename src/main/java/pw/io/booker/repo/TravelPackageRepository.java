@@ -11,5 +11,5 @@ import pw.io.booker.model.TravelPackage;
 @Repository
 public interface TravelPackageRepository extends CrudRepository<TravelPackage, Integer> {
 
-	List<TravelPackage> findAvailableServiceListIn(List<Service> serviceList);
+	List<TravelPackage> findByAvailableServiceListIn(List<Service> serviceList);
 }

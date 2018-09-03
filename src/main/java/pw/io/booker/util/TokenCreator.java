@@ -3,11 +3,22 @@ package pw.io.booker.util;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
+
 import org.springframework.stereotype.Service;
+
 import pw.io.booker.model.Customer;
+import pw.io.booker.model.Token;
+import pw.io.booker.repo.TokenRepository;
 
 @Service
 public class TokenCreator {
+	
+	private TokenRepository tokenRepository;
+
+	public TokenCreator(TokenRepository tokenRepository) {
+		this.tokenRepository = tokenRepository;
+	}
+	
   private static String source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@ ";
   private static String target = "Q5A8ZWS0XEDC6RFVT9GBY4HNU3J2MI1KO7LPX#";
 
@@ -22,7 +33,7 @@ public class TokenCreator {
       int index = source.indexOf(c);
       result[i] = target.charAt(index);
     }
-
+    
     return new String(result);
   }
 
@@ -43,5 +54,12 @@ public class TokenCreator {
 
     return question1;
   }
+
+public void delete(String token) {
+	
+	tokenRepository.deleteByTokenString(token);
+	
+}
+  
 
 }

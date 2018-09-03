@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 import pw.io.booker.model.Token;
 
 @Repository
-public interface AuthenticationRepository extends CrudRepository<Token, Integer> {
+public interface TokenRepository extends CrudRepository<Token, Integer> {
+	
+	void deleteByTokenString(String token);
+
+	Token findByTokenString(String token);
 	
 }
