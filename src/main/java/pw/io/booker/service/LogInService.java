@@ -25,7 +25,7 @@ public class LogInService {
 	
 	public String logIn(Customer customer) {
 	    
-		customerRepository.save(customer);
+		customerRepository.save(customerRepository.findByUsernameAndPassword(customer.getUsername(),customer.getPassword()));
 		
 		String result;
 		

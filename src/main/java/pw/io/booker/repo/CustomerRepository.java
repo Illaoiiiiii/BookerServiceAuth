@@ -7,5 +7,7 @@ import pw.io.booker.model.Customer;
 
 @Repository
 public interface CustomerRepository extends PagingAndSortingRepository<Customer, Integer> {
+
+	Customer findByUsernameAndPassword(String username, String password);
 	
 }

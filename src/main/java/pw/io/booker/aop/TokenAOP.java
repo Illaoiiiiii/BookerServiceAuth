@@ -1,5 +1,6 @@
 package pw.io.booker.aop;
 
+import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,6 +14,8 @@ public class TokenAOP {
 
 	private TokenRepository tokenRepository;
 	
+	private static Logger logger = Logger.getLogger(TokenAOP.class);
+	
 	public TokenAOP(TokenRepository tokenRepository) {
 		this.tokenRepository = tokenRepository;
 	}
@@ -20,6 +23,8 @@ public class TokenAOP {
 	@Around("execution(* pw.io.booker.controller..*(..)) && args(token,..)")
 	public Object checkAuthentication(ProceedingJoinPoint joinPoint, String token) {
 
+		logger.info("CheckAuthentication Entry Point");
+		
 		if (token == null) {
 			throw new AuthenticationException();
 		}
@@ -33,11 +38,12 @@ public class TokenAOP {
 		try {
 			returnS= joinPoint.proceed();
 		} catch (AuthenticationException ex) {
-			ex.getMessage();
+			logger.error(ex.message());
 		} catch (Throwable e) {
-			e.getMessage();
+			logger.error(e.getMessage());
 		}
 
+		logger.info("CheckAuthentication Exit Point");
 		return returnS;
 	}
 }
